@@ -87,6 +87,10 @@ playBtn.addEventListener('click', function () {
     const cellsTotal = rows * rowCells;
 
 
+    // CREIAMO UNA VARIABILE PER CONTENERE IL PUNTEGGIO
+
+    let userPoints = 0;
+
 
     // CREIAMO LE CELLE CHE CI SERVONO 
 
@@ -105,7 +109,7 @@ playBtn.addEventListener('click', function () {
             }
             this.classList.add('clicked')
 
-
+            console.log(userPoints)
 
 
 
