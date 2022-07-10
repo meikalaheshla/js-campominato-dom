@@ -38,7 +38,7 @@ let rows;
 let rowCells;
 
 
-// FUNZIONe per crare una cella
+// FUNZIONE per crare una cella
 
 function createCell(cellNumber) {
     const cell = document.createElement('div');
@@ -91,6 +91,34 @@ playBtn.addEventListener('click', function () {
 
     let userPoints = 0;
 
+    // CREO UN ARRAY CHE CONTIENE LE BOMBE
+
+    const BOMBS_TOTAL = 16;
+
+    // CREO UNA FUNZIONE CHE GENERA LE BOMBE 
+
+    function createBombs(BOMBS_TOTAL, cellsTotal) {
+        const bombs = [];
+        while (bombs.length < BOMBS_TOTAL) {
+            let randomNumber;
+            do {
+                randomNumber = Math.floor(Math.random() * cellsTotal) + 1;
+            } while (bombs.includes(randomNumber))
+
+            bombs.push(randomNumber)
+        }
+
+        return bombs;
+
+    }
+
+
+
+    // GENERO EFFETTIVAMENTE LE BOMBE
+
+    const bombs = createBombs(BOMBS_TOTAL, cellsTotal);
+    console.log(bombs)
+
 
     // CREIAMO LE CELLE CHE CI SERVONO 
 
@@ -98,6 +126,7 @@ playBtn.addEventListener('click', function () {
         const cell = createCell(i);
 
         // AGGIUNGO AZIONI AL CLICK DLLE CELLE
+
         cell.addEventListener('click', function () {
 
             ++userPoints;
@@ -109,6 +138,7 @@ playBtn.addEventListener('click', function () {
             }
             this.classList.add('clicked')
 
+            console.log(cell.innerText)
             console.log(userPoints)
 
 
