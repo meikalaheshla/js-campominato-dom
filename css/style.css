@@ -70,6 +70,14 @@ main {
 /* CLASSI CELLE  */
 
 .cell.clicked {
-    background-color: aqua;
     cursor: not-allowed;
+}
+
+.cell.bomb {
+    background-color: red;
+}
+
+.cell.flag {
+    background-color: aqua;
+
 }

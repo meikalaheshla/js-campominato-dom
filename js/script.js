@@ -91,10 +91,15 @@ playBtn.addEventListener('click', function () {
 
     let userPoints = 0;
 
+
+
     // CREO UN ARRAY CHE CONTIENE LE BOMBE
 
     const BOMBS_TOTAL = 16;
 
+    // CREIAMO UNA COSTANTE PER IL PUNTEGGIO DELLA VITTORIA
+
+    const WinningScore = cellsTotal - BOMBS_TOTAL;
     // CREO UNA FUNZIONE CHE GENERA LE BOMBE 
 
     function createBombs(BOMBS_TOTAL, cellsTotal) {
@@ -117,7 +122,28 @@ playBtn.addEventListener('click', function () {
     // GENERO EFFETTIVAMENTE LE BOMBE
 
     const bombs = createBombs(BOMBS_TOTAL, cellsTotal);
-    console.log(bombs)
+    console.log(bombs);
+
+
+    // CREO LA FUNZIONE PER CAPIRE SE IL GIOCO è FINITO E PERCHè
+
+    function isGameOver(cell, bombs) {
+        const cellNumber = parseInt(cell.innerText);
+
+        if (bombs.includes(cellNumber)) {
+            cell.classList.add('bomb')
+            console.log(`HAI PRESO UNA BOMBA HAI TOTALIZZATO ${userPoints} punti `)
+            console.log(userPoints)
+            return true;
+
+        } else {
+            cell.classList.add('flag')
+            return false;
+        }
+    }
+
+
+
 
 
     // CREIAMO LE CELLE CHE CI SERVONO 
@@ -129,7 +155,6 @@ playBtn.addEventListener('click', function () {
 
         cell.addEventListener('click', function () {
 
-            ++userPoints;
 
             // IMPEDISCE DI CLICKARE PIU VOLTE 
 
@@ -137,6 +162,13 @@ playBtn.addEventListener('click', function () {
                 return
             }
             this.classList.add('clicked')
+
+            // AGGIUNGO IL CONTROLLO PER SAPERE SE è GAME OVER O NO
+
+            const gameOver = isGameOver(cell, bombs);
+            if (!gameOver) userPoints++;
+
+
 
             console.log(cell.innerText)
             console.log(userPoints)
