@@ -124,25 +124,45 @@ playBtn.addEventListener('click', function () {
     const bombs = createBombs(BOMBS_TOTAL, cellsTotal);
     console.log(bombs);
 
+    // CREO UNA FUNZIONE CHE IMPEDISCA DI CLICCARE LE CELLE 
+    function blockGrid() {
+        const cells = document.querySelectorAll('.cell')
+        for (let i = 0; i < cells.length; i++) {
+            cells[i].classList.add('clicked')
+        }
+    }
+
 
     // CREO LA FUNZIONE PER CAPIRE SE IL GIOCO è FINITO E PERCHè
 
     function isGameOver(cell, bombs, userPoints, WinningScore) {
         const cellNumber = parseInt(cell.innerText);
-
+        const cells = document.querySelectorAll('cell')
+        for (let i = 0; i < cells.length; i++) {
+            cells[i].classList.add('clicked');
+        }
         if (bombs.includes(cellNumber)) {
             cell.classList.add('bomb')
 
-            console.log(`HAI PRESO UNA BOMBA HAI TOTALIZZATO ${userPoints} punti `)
-            console.log(userPoints)
+            // AGGIUNGO LA FUNZIONE CHE BLOCCA LA GRIGLIA DOPO AVER VINSTO O PERSO
+
+            blockGrid()
+
+            alert(`HAI PRESO UNA BOMBA HAI TOTALIZZATO ${userPoints} punti `)
+
             return true;
 
         } else {
             cell.classList.add('flag')
             if (userPoints + 1 === WinningScore) {
-                alert(`Hai vinto il tuo punteggio è di ${userPoints + 1} punti`)
+                alert(`Hai vinto il tuo punteggio è di ${WinningScore} punti`)
+
+                // AGGIUNGO LA FUNZIONE CHE BLOCCA LA GRIGLIA DOPO AVER VINSTO O PERSO
+
+                blockGrid()
                 return true;
             }
+
             return false;
         }
     }
