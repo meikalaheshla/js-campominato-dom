@@ -127,17 +127,22 @@ playBtn.addEventListener('click', function () {
 
     // CREO LA FUNZIONE PER CAPIRE SE IL GIOCO è FINITO E PERCHè
 
-    function isGameOver(cell, bombs) {
+    function isGameOver(cell, bombs, userPoints, WinningScore) {
         const cellNumber = parseInt(cell.innerText);
 
         if (bombs.includes(cellNumber)) {
             cell.classList.add('bomb')
+
             console.log(`HAI PRESO UNA BOMBA HAI TOTALIZZATO ${userPoints} punti `)
             console.log(userPoints)
             return true;
 
         } else {
             cell.classList.add('flag')
+            if (userPoints + 1 === WinningScore) {
+                alert(`Hai vinto il tuo punteggio è di ${userPoints + 1} punti`)
+                return true;
+            }
             return false;
         }
     }
@@ -165,8 +170,11 @@ playBtn.addEventListener('click', function () {
 
             // AGGIUNGO IL CONTROLLO PER SAPERE SE è GAME OVER O NO
 
-            const gameOver = isGameOver(cell, bombs);
-            if (!gameOver) userPoints++;
+            const gameOver = isGameOver(cell, bombs, userPoints, WinningScore);
+            if (!gameOver) {
+                userPoints++;
+            }
+
 
 
 
